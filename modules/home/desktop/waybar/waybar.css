@@ -1,0 +1,23 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Ubuntu;
+}
+
+#waybar {
+    background-color: rgba(50, 50, 50, 0.93);
+    color: white;
+    font-size: 16px;
+}
+
+#clock {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px
+}
+
+#workspaces button {
+    color: white;
+    border: 1px solid;
+    border-color: white;
+}
