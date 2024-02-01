@@ -12,6 +12,7 @@ in
 {
   options.nuko.desktop.fonts = with types; {
     enable = mkBoolOpt false "Whether or not to manage fonts.";
+    replaceFonts = mkBoolOpt cfg.enable "Weather or not to install font replacement config.";
     fonts = mkOpt (listOf package) [ ] "Custom font packages to install.";
   };
 
@@ -42,6 +43,22 @@ in
           (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
           source-code-pro
         ]
+        ++ lib.optionals cfg.replaceFonts [
+          roboto
+          garamond-libre
+          courier-prime
+          gelasio
+          caladea
+          noto-fonts
+          lato
+          libre-baskerville
+          libertinus
+          fira-mono
+          merriweather
+          merriweather-sans
+          comic-relief # comic-neu
+          (google-fonts.override { fonts = [ "Arimo" ]; })
+        ]
         ++ cfg.fonts;
 
       fontconfig.defaultFonts = {
@@ -50,6 +67,8 @@ in
         monospace = [ "JetBrainsMono Nerd Font" ];
         emoji = [ "Noto Color Emoji" ];
       };
+
+      fontconfig.localConf = mkIf cfg.replaceFonts (builtins.readFile ./replacements.conf);
 
       # fontconfig.subpixel.rgba = "rgb";
     };
