@@ -32,6 +32,8 @@ mkModule args
         };
       };
 
+      wlogout.enable = true;
+
       # TODO swaylock-effects screenshot disapears after DPMS.
       swaylock = {
         enable = true;
@@ -207,7 +209,7 @@ mkModule args
           bind = $mainMod, O, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw
           bind = $mainMod, RETURN, exec, foot
           bind = $mainMod, Q, killactive,
-          bind = $mainMod SHIFT, BACKSPACE, exit,
+          bind = $mainMod SHIFT, BACKSPACE, exec, ${lib.getExe config.programs.wlogout.package}
           bind = $mainMod, E, exec, nemo
           bind = $mainMod, G, togglefloating,
           bind = $mainMod, T, fullscreen,
