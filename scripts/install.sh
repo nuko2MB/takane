@@ -5,7 +5,7 @@
 fi
 
  function disko() {
-  nix --extra-experimental-features "nix-command flakes" run .#disko -- "$@"
+  nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- "$@"
  }
 
  echo Partitioning Disk
