@@ -97,18 +97,13 @@ mkModule args
           windowrulev2 = workspace 3, class:StaTech Industry
           windowrulev2 = immediate, class:StaTech Industry
 
-
           # MPV PIP
           windowrulev2 = opacity 0.7, class:mpv
           windowrulev2 = opaque, class:mpv
           windowrulev2 = noblur, class:mpv
 
-
-          # Source a file (multi-file configs)
-          # source = ~/.config/hypr/myColors.conf
-
-          # Some default env vars.
-          env = XCURSOR_SIZE,24
+          # Use foot's own transparency
+          windowrulev2 = opaque, class:foot
 
           # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
           input {
@@ -163,18 +158,17 @@ mkModule args
 
               # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
-              bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+              bezier = myBezier, 0.10, 0.9, 0.1, 1.05
 
-              animation = windows, 1, 7, myBezier
-              animation = windowsOut, 1, 7, default, popin 80%
+              animation = windows, 1, 5, myBezier, slide
+              animation = windowsOut, 1, 5, myBezier, slide
               animation = border, 1, 10, default
-              animation = borderangle, 1, 8, default
               animation = fade, 1, 7, default
               animation = workspaces, 1, 6, default
           }
 
           dwindle {
-              no_gaps_when_only = 1
+              no_gaps_when_only = 0
               # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
               pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
               preserve_split = true # you probably want this
@@ -190,18 +184,9 @@ mkModule args
               workspace_swipe = false
           }
 
-          # Example windowrule v1
-          # windowrule = float, ^(kitty)$
-          # Example windowrule v2
-          # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-          # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-
-
-          # See https://wiki.hyprland.org/Configuring/Keywords/ for more
           $mainMod = SUPER
 
           # MPV PIP
-
           bind = $mainMod SHIFT, G, togglefloating,
           bind = $mainMod SHIFT, G, toggleopaque,
           bind = $mainMod SHIFT, G, pin,
@@ -268,17 +253,6 @@ mkModule args
           bindl=, XF86AudioPlay, exec, playerctl play-pause
 
           exec-once=xrandr --output DP-1 --primary
-          exec-once=hyprctl dispatch workspace 1
-          workspace=1,monitor:DP-1
-          workspace=2,monitor:DP-2
-          workspace=3,monitor:DP-1
-          workspace=4,monitor:DP-2
-          workspace=5,monitor:DP-1
-          workspace=6,monitor:DP-2
-          workspace=7,monitor:DP-1
-          workspace=8,monitor:DP-2
-          workspace=9,monitor:DP-1
-          workspace=10,monitor:DP-2
 
           # Gtk application bug fix. Unsure if needed. Too lazy to test.
           exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
