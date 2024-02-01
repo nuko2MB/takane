@@ -94,6 +94,10 @@ mkModule args
           windowrulev2 = workspace 3, class:^(steam_app_)(.*)$
           windowrulev2 = immediate, class:^(steam_app_)(.*)$
 
+          # Minecraft
+          windowrulev2 = workspace 3, class:Minecraft
+          windowrulev2 = immediate, class:Minecraft
+
           windowrulev2 = workspace 3, class:StaTech Industry
           windowrulev2 = immediate, class:StaTech Industry
 
