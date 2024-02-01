@@ -10,7 +10,6 @@ lib.nuko.mkModule args
     "swayidle"
   ]
   {
-    # TODO swayidle suspend is not working.
     services.swayidle =
       let
         swaylock = config.programs.swaylock.package;
@@ -30,7 +29,7 @@ lib.nuko.mkModule args
           }
           {
             timeout = 1200;
-            command = "systemctl suspend";
+            command = "${lib.getExe' pkgs.systemd "systemctl"} suspend";
           }
         ];
         events = [
