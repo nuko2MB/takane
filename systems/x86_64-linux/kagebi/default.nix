@@ -90,6 +90,7 @@ with lib.nuko;
     # Games
     protontricks
     lutris
+    nuko.wowup-cf
     # xivlauncher
     # bottles
     # wowup-cf
