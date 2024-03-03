@@ -17,6 +17,7 @@ lib.nuko.mkModule args
           modules-center = [ "mpris" ];
           modules-right = [
             "tray"
+            "idle_inhibitor"
             "clock"
           ];
 
@@ -44,6 +45,13 @@ lib.nuko.mkModule args
             };
             max-length = 1000;
             # interval = 1;
+          };
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = "󰆪";
+              deactivated = "󰗥";
+            };
           };
         };
       };

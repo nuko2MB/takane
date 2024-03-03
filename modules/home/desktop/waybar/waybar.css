@@ -5,14 +5,14 @@
 }
 
 #waybar {
-    background-color: rgba(50, 50, 50, 0.93);
+    background-color: rgba(87, 36, 36, 0.93);
     color: white;
     font-size: 16px;
 }
 
 #clock {
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: 20px
 }
 
@@ -20,4 +20,9 @@
     color: white;
     border: 1px solid;
     border-color: white;
+}
+
+#idle_inhibitor {
+    margin-left: 10px;
+    margin-right: 5px;
 }
