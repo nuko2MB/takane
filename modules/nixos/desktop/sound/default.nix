@@ -67,4 +67,9 @@ lib.nuko.mkModule' args "sound" [ inputs.nix-gaming.nixosModules.pipewireLowLate
       ]
     '';
   };
+
+  # Udev rule to disable hardware volume control.
+  services.udev.extraRules = ''
+    ACTION=="add", ATTR{idVendor}=="1377", ATTR{idProduct}=="6004", RUN+="/bin/sh -c 'echo 0 > /sys$DEVPATH/`basename $DEVPATH`:1.2/authorized'"
+  '';
 }
