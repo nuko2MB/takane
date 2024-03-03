@@ -67,6 +67,7 @@ with lib.nuko;
     qbittorrent
     discord
     stremio
+    yt-dlp
 
     # Cosmic Testing
     #cosmic-term
