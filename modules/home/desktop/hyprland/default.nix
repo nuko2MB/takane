@@ -18,6 +18,8 @@ mkModule args
       };
       services = {
         swayidle = enabled;
+      programs = {
+        wlogout = enabled;
       };
     };
 
