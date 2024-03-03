@@ -54,15 +54,16 @@ mkModule args
       playerctl
       swaynotificationcenter
       swayosd
+
+      wl-clipboard
+      xclip
       #onagre # Broken pkg. https://github.com/NixOS/nixpkgs/pull/235072
     ];
 
     services.swayosd.enable = true;
 
     wayland.windowManager.hyprland =
-      let
-        swayosd = "${pkgs.swayosd}/bin/swayosd";
-      in
+      # accel = "0.17 0.000 0.005 0.010 0.018 0.026 0.033 0.042 0.053 0.065 0.077 0.089 0.100 0.112 0.124 0.135 0.147 0.159 0.171 0.182 0.206";
       {
         enable = true;
         systemd.enable = true;
@@ -86,6 +87,16 @@ mkModule args
           windowrulev2 = workspace 3, class:StaTech Industry
           windowrulev2 = immediate, class:StaTech Industry
 
+          # Guild Wars 2
+          windowrulev2 = nofullscreenrequest, title:^(Guild Wars 2)$
+          windowrulev2 = nomaximizerequest, title:^(Guild Wars 2)$
+
+          # https://github.com/hyprwm/Hyprland/issues/2661
+          # https://github.com/hyprwm/Hyprland/pull/4539
+          windowrulev2 = stayfocused, title:^()$,class:^(steam)$
+          windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
+
+
           # MPV PIP
           windowrulev2 = opacity 0.7, class:mpv
           windowrulev2 = opaque, class:mpv
@@ -98,7 +109,7 @@ mkModule args
           input {
               kb_layout = us
               follow_mouse = 1
-              # sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+              sensitivity = -0.25
               accel_profile = flat
           }
 
@@ -237,11 +248,26 @@ mkModule args
           bindm = $mainMod, mouse:272, movewindow
           bindm = $mainMod, mouse:273, resizewindow
 
-          bindl=, XF86AudioRaiseVolume, exec, ${swayosd} --output-volume raise # wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-          bindl=, XF86AudioLowerVolume, exec, ${swayosd} --output-volume lower #  wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+          bindl=, XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise # wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+          bindl=, XF86AudioLowerVolume, exec, swayosd-client --output-volume lower #  wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
           bindl=, XF86AudioPlay, exec, playerctl play-pause
 
           exec-once=xrandr --output DP-1 --primary
+          exec-once=hyprctl dispatch workspace 1
+          workspace=1,monitor:DP-1
+          workspace=2,monitor:DP-2
+          workspace=3,monitor:DP-1
+          workspace=4,monitor:DP-2
+          workspace=5,monitor:DP-1
+          workspace=6,monitor:DP-2
+          workspace=7,monitor:DP-1
+          workspace=8,monitor:DP-2
+          workspace=9,monitor:DP-1
+          workspace=10,monitor:DP-2
+
+
+          # https://github.com/hyprwm/Hyprland/issues/2319
+          exec-once=wl-paste -t text -w sh -c 'v=$(cat); cmp -s <(xclip -selection clipboard -o)  <<< "$v" || xclip -selection clipboard <<< "$v"'
 
           # Gtk application bug fix. Unsure if needed. Too lazy to test.
           exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP

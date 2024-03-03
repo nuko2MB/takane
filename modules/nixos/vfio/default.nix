@@ -12,6 +12,7 @@ in
   options.nuko.vfio = {
     enable = mkEnableOption "Enable VFIO";
   };
+  imports = [ ./qemu-hooks.nix ];
 
   config = mkIf cfg.enable {
     virtualisation.libvirtd = {
@@ -25,14 +26,7 @@ in
           # https://github.com/NixOS/nixpkgs/issues/164064
           # Merged into unstable
           # TODO:
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              csmSupport = false;
-              httpSupport = true;
-              tpmSupport = true;
-            }).fd
-          ];
+          packages = [ pkgs.OVMFFull.fd ];
         };
         swtpm.enable = true;
         runAsRoot = false;
@@ -42,6 +36,7 @@ in
       kernelParams = [
         "intel_iommu=on"
         "intel_iommu=igfx_off"
+        "iommu=pt"
       ];
 
       kernelModules = [
@@ -56,6 +51,12 @@ in
         "vfio_iommu_type1"
       ];
     };
+    # TODO: Is input group required?
+    nuko.user.extraGroups = [
+      "kvm"
+      "libvirtd"
+      "input"
+    ];
     environment.systemPackages = with pkgs; [ virt-manager ];
   };
 }
