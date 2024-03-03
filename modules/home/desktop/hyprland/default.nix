@@ -15,9 +15,12 @@ mkModule args
     nuko = {
       desktop = {
         waybar = enabled;
+        hyprlock = enabled;
       };
       services = {
-        swayidle = enabled;
+        # swayidle = enabled;
+        hypridle = enabled;
+      };
       programs = {
         wlogout = enabled;
       };
@@ -30,27 +33,7 @@ mkModule args
           lines = 6;
           line-height = 32;
           width = 24;
-          terminal = "${pkgs.foot}/bin/footclient";
-        };
-      };
-
-      wlogout.enable = true;
-
-      # TODO swaylock-effects screenshot disapears after DPMS.
-      swaylock = {
-        enable = true;
-        package = pkgs.swaylock-effects;
-        settings = {
-          grace = 30;
-          daemonize = true;
-          screenshots = true;
-          clock = true;
-          indicator = true;
-
-          effect-blur = "7x5";
-          fade-in = 0.2;
-
-          # ring-color = "bb00cc";
+          terminal = "${pkgs.foot}/bin/foot";
         };
       };
     };
