@@ -16,6 +16,7 @@ with lib.nuko;
       vscode = enabled;
       foot = enabled;
       nushell = enabled;
+      obs = enabled;
     };
   };
 
